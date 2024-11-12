@@ -4,8 +4,21 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import * as M3 from '@/modules/my-module-3';
+import { useEffect } from 'react';
 
 export default function HomeScreen() {
+  useEffect(() => {
+    const sub = M3.addChangeListener(({ value }) => {
+      // Nothing happen..never reach here
+      alert(value)
+    })
+
+    M3.setValueAsync("This will trigger an event")
+
+    return () => sub.remove()
+  }, []);
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
